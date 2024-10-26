@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -42,15 +43,18 @@ const Hero = () => {
     e.target.style.color = '#1a237e';
   };
 
+  const navigate = useNavigate();
+  
   return (
     <Container fluid style={heroStyle} className="p-0 hero-background">
       <h1 style={h1Style}>Hi, I'm Ayush</h1>
       <p>Welcome to my portfolio, where I share my projects, passions, and insights!</p>
       <Button
-        style={buttonStyle}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        className="mt-3"
+          onClick={() => navigate('/projects')}
+          style={buttonStyle}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          className="mt-3"
       >
         Explore My Work
       </Button>

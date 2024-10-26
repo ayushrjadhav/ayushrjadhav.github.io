@@ -7,7 +7,7 @@ const About = () => {
       <p>
         My name is Ayush, and I’m an undergraduate at the University of Wisconsin-Madison. 
         I am majoring in Computer Engineering and Computer Science with a certificate in Data Analytics and Leadership. 
-        This website is a portfolio of all the work I’ve done and offers insight into my hobbies and passions.
+        This website is a portfolio of all the work I’ve done and offers insights into my hobbies and passions.
       </p>
     </div>
   );

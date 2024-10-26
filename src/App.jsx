@@ -1,45 +1,20 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import Hero from './components/Hero';
-import About from './components/About';
-import Projects from './components/Projects';
-import BlogReviews from './components/BlogReviews';
-import Subscribe from './components/Subscribe';
-import Footer from './components/Footer';
-import Divider from './components/Divider';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Home from './components/Home';           // Home page component with all sections
+import ProjectPage from './components/ProjectPage'; // Separate Projects page component
+import AboutPage from './components/AboutPage';
 
 function App() {
   return (
-    <Container fluid className="p-0">
-      <Hero />
-      <Container className="my-5">
-        <Row className="justify-content-center">
-          <Col md={8}>
-            <About />
-          </Col>
-        </Row>
-        <Divider color="#1a237e" />
-        <Row className="justify-content-center">
-          <Col md={8}>
-            <Projects />
-          </Col>
-        </Row>
-        <Divider color="#1a237e" />
-        <Row className="justify-content-center">
-          <Col md={8}>
-            <BlogReviews />
-          </Col>
-        </Row>
-        <Divider color="#1a237e" />
-        <Row className="justify-content-center">
-          <Col md={8}>
-            <Subscribe />
-          </Col>
-        </Row>
-        <Divider color="#1a237e" />
-      </Container>
-      <Footer />
-    </Container>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />         {/* Home page with button linking to projects */}
+        <Route path="/projects" element={<ProjectPage />} /> {/* Separate Projects page */}
+        <Route path="/About" element={<AboutPage />} />
+      </Routes>
+    </Router>
   );
 }
 
