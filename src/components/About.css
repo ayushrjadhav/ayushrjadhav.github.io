@@ -1,0 +1,17 @@
+/* About section */
+.about {
+    background-color: var(--secondary-color);
+    padding: 4rem 2rem;
+  }
+  
+  .about h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .about p {
+    color: #555;
+    font-size: 1.1rem;
+    max-width: 700px;
+  }
+  

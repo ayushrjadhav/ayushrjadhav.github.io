@@ -1,0 +1,32 @@
+/* Subscribe section */
+.subscribe {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 4rem 2rem;
+  }
+  
+  .subscribe h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .subscribe form {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .subscribe input[type="email"] {
+    padding: 0.6rem 1rem;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    width: 100%;
+  }
+  
+  .subscribe button {
+    padding: 0.6rem 1.5rem;
+  }
+  

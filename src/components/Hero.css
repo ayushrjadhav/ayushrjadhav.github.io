@@ -1,0 +1,30 @@
+/* Hero section */
+.hero {
+    background-image: linear-gradient(to right, rgba(26, 35, 126, 0.9), rgba(41, 121, 255, 0.9)),
+      url('path/to/your-background-image.jpg');
+    color: white;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+  
+  .hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .hero p {
+    max-width: 600px;
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+    color: #d3d3d3;
+  }
+  
+  .hero button {
+    font-size: 1rem;
+  }
+  
