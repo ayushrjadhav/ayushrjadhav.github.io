@@ -7,7 +7,7 @@ import AboutPage from './components/AboutPage';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/ayushrjadhav.github.io">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />         {/* Home page with button linking to projects */}
