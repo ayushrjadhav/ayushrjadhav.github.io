@@ -66,7 +66,7 @@ const AboutPage = () => {
             <h2>Other Interests</h2>
             <p>
               Outside academics, I am involved in various organizations. I am part of the Badminton Club, competing in tournaments, 
-              and represent the College of Engineering in the student government. I also work part-time for a learning community on campus 
+              and represent the College of Engineering in the student government. I also work part-time for Bradley Learning Community 
               where I train mentors and assist first-year students in transitioning to campus life.
             </p>
           </Card>
