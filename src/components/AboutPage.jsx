@@ -38,7 +38,7 @@ const AboutPage = () => {
               <Col md={8}>
                 <h2>Who am I?</h2>
                 <p>
-                  I am an undergraduate student at the University of Wisconsin-Madison, majoring in Computer Engineering and Computer Science with a minor in Physics.
+                  I am an undergraduate student at the University of Wisconsin-Madison, majoring in Computer Engineering and Computer Science with certificates in Data Analytics and <Leadership></Leadership>.
                 </p>
               </Col>
             </Row>
@@ -53,7 +53,7 @@ const AboutPage = () => {
             <h2>Academic Interests</h2>
             <p>
               I am interested in computer hardware and software, with experience in embedded systems, app development, and web development. 
-              I am also intrigued by the field of quantum computing and its potential to revolutionize our world.
+              I am interested in using machine learning techniques to optimize the grid system and leverage this techniques to better outage management systems.
             </p>
           </Card>
         </Col>
