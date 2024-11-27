@@ -38,7 +38,7 @@ const AboutPage = () => {
               <Col md={8}>
                 <h2>Who am I?</h2>
                 <p>
-                  I am an undergraduate student at the University of Wisconsin-Madison, majoring in Computer Engineering and Computer Science with certificates in Data Analytics and <Leadership></Leadership>.
+                  I am an undergraduate student at the University of Wisconsin-Madison, majoring in Computer Engineering and Computer Science with certificates in Data Analytics and Leadership.
                 </p>
               </Col>
             </Row>
