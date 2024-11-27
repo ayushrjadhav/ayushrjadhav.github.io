@@ -114,10 +114,10 @@ const AboutPage = () => {
             <h3>Engineering Experience</h3>
             <p><strong>WEC Energy Group</strong>, Software Developer Intern, Milwaukee, WI (May 2023 - Present)</p>
             <ul>
-              <p>Developed and implemented innovative software solutions for the PCAD system, utilizing .NET, SQL, C#, and databases, to redesign backend processes, leading to a 20% increase in system efficiency and user satisfaction.</p>
-              <p>Pioneered the creation of a dynamic web-based platform for real-time tracking of electric and gas outages using HTML, CSS, JavaScript, and .NET frameworks with external APIs resulting in improved customer service and operational response times</p>
-              <p>Played a key role in modernizing legacy server systems and migrating to cloud-based architectures. Collaborated with cross-functional teams in business analysis to identify technical requirements and reduced system downtime by 15%</p>
-              <p>Worked within an Agile framework, participating in sprint planning, conducting peer code reviews, and delivering solutions in a CI/CD pipeline</p>
+              <li>Developed and implemented innovative software solutions for the PCAD system, utilizing .NET, SQL, C#, and databases, to redesign backend processes, leading to a 20% increase in system efficiency and user satisfaction.</li>
+              <li>Pioneered the creation of a dynamic web-based platform for real-time tracking of electric and gas outages using HTML, CSS, JavaScript, and .NET frameworks with external APIs resulting in improved customer service and operational response times</li>
+              <li>Played a key role in modernizing legacy server systems and migrating to cloud-based architectures. Collaborated with cross-functional teams in business analysis to identify technical requirements and reduced system downtime by 15%</li>
+              <li>Worked within an Agile framework, participating in sprint planning, conducting peer code reviews, and delivering solutions in a CI/CD pipeline</li>
             </ul>
 
             <p><strong>Asian Paints</strong>, Software Developer Intern, Mumbai, India (June - August 2022)</p>
