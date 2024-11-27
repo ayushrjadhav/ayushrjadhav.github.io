@@ -81,11 +81,11 @@ const AboutPage = () => {
             <p>Email: <a href="mailto:arjadhav@wisc.edu">arjadhav@wisc.edu</a></p>
             <p>
               Connect with me on: &nbsp;
-              <a href="https://linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.linkedin.com/in/ayush-jadhav-227590227/" target="_blank" rel="noopener noreferrer">
                 <FaLinkedin size={24} />
               </a>
               &nbsp;&nbsp;
-              <a href="https://instagram.com/your-profile" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.instagram.com/ayush_jadhav14/" target="_blank" rel="noopener noreferrer">
                 <FaInstagram size={24} />
               </a>
             </p>
@@ -114,9 +114,10 @@ const AboutPage = () => {
             <h3>Engineering Experience</h3>
             <p><strong>WEC Energy Group</strong>, Software Developer Intern, Milwaukee, WI (May 2023 - Present)</p>
             <ul>
-              <li>Developed innovative software solutions for the PCAD system, increasing efficiency by 20%.</li>
-              <li>Created a dynamic platform for real-time outage tracking, improving operational response.</li>
-              <li>Led modernization of server systems, optimizing code and reducing downtime by 15%.</li>
+              <p>Developed and implemented innovative software solutions for the PCAD system, utilizing .NET, SQL, C#, and databases, to redesign backend processes, leading to a 20% increase in system efficiency and user satisfaction.</p>
+              <p>Pioneered the creation of a dynamic web-based platform for real-time tracking of electric and gas outages using HTML, CSS, JavaScript, and .NET frameworks with external APIs resulting in improved customer service and operational response times</p>
+              <p>Played a key role in modernizing legacy server systems and migrating to cloud-based architectures. Collaborated with cross-functional teams in business analysis to identify technical requirements and reduced system downtime by 15%</p>
+              <p>Worked within an Agile framework, participating in sprint planning, conducting peer code reviews, and delivering solutions in a CI/CD pipeline</p>
             </ul>
 
             <p><strong>Asian Paints</strong>, Software Developer Intern, Mumbai, India (June - August 2022)</p>
