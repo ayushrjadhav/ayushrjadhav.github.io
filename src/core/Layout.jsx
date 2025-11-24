@@ -7,6 +7,7 @@ export default function Layout({ children }) {
           <div className="hidden md:flex gap-8 text-sm text-neutral-600">
             <a href="/">Home</a>
             <a href="/projects">Projects</a>
+            <a href="/case-studies">Case Studies</a>
             <a href="/about">About</a>
           </div>
         </nav>

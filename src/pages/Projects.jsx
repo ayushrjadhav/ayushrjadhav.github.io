@@ -1,11 +1,28 @@
 // src/pages/Projects.jsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Section from "../core/Section";
 import ProjectCard from "../core/ProjectCard";
 import Modal from "../core/Modal";
 import { projects } from "../data/projectdata";
 
 export default function Projects() {
+  useEffect(() => {
+    document.title = "Projects — Ayush Jadhav | AI Engineer Portfolio";
+
+    // Ensure meta description exists and update it
+    let metaDesc = document.querySelector("meta[name='description']");
+    if (!metaDesc) {
+      metaDesc = document.createElement("meta");
+      metaDesc.name = "description";
+      document.head.appendChild(metaDesc);
+    }
+
+    metaDesc.setAttribute(
+      "content",
+      "Explore applied AI and systems engineering projects by Ayush Jadhav — focusing on LLM agents, optimization, ML modeling, and high-quality product engineering."
+    );
+  }, []);
+
   const [active, setActive] = useState(null);
 
   return (
@@ -17,10 +34,13 @@ export default function Projects() {
           thinking: problem framing, data/ML or LLM approach, product UX, and measurable outcomes.
         </p>
 
-        <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((p) => (
-            <ProjectCard key={p.id} item={p} onOpen={setActive} />
-          ))}
+        {/* NEW gradient background wrapper for glass cards */}
+        <div className="mt-10">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {projects.map((p) => (
+              <ProjectCard key={p.id} item={p} onOpen={setActive} />
+            ))}
+          </div>
         </div>
       </Section>
 

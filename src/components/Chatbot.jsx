@@ -1,6 +1,7 @@
 // src/components/Chatbot.jsx
 
 import { useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 
 // --- Tiny safe formatter: escape → bold → bullets → links → paragraphs ---
 function escapeHTML(str) {
@@ -63,6 +64,7 @@ function TypingDots() {
 }
 
 export default function Chatbot() {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([
     { sender: "bot", text: "Hi! I'm Ayush AI. Ask me about his projects or skills!" },
@@ -70,6 +72,15 @@ export default function Chatbot() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const [showQuick, setShowQuick] = useState(true);
+  const [pinned, setPinned] = useState(false);
+
+  function quickNav(route, msg) {
+    navigate(route);
+    setMessages((prev) => [...prev, { sender: "bot", text: msg }]);
+    // Keep quick links visible unless the user manually hides them
+  }
 
   // ---- Placement: bottom-right + safe-area (iOS notch) ----
   const floatingPos = {
@@ -104,6 +115,33 @@ export default function Chatbot() {
     setMessages((prev) => [...prev, { sender: "user", text }]);
     setInput("");
     setLoading(true);
+
+    // --- Intent-based navigation for Case Studies ---
+    const lower = text.toLowerCase();
+    if (lower.includes("case studies") || lower.includes("open case studies")) {
+      navigate("/case-studies");
+      setMessages((prev) => [...prev, { sender: "bot", text: "Opening Case Studies..." }]);
+      setLoading(false);
+      return;
+    }
+    if (lower.includes("wischeduler") || lower.includes("schedule case")) {
+      navigate("/case-studies/wischeduler");
+      setMessages((prev) => [...prev, { sender: "bot", text: "Opening the Wischeduler case study..." }]);
+      setLoading(false);
+      return;
+    }
+    if (lower.includes("wildfire") || lower.includes("line loading") || lower.includes("risk model")) {
+      navigate("/case-studies/wildfire-ml");
+      setMessages((prev) => [...prev, { sender: "bot", text: "Opening the Wildfire ML case study..." }]);
+      setLoading(false);
+      return;
+    }
+    if (lower.includes("gradey") || lower.includes("chatbot case")) {
+      navigate("/case-studies/gradey");
+      setMessages((prev) => [...prev, { sender: "bot", text: "Opening the Gradey AI case study..." }]);
+      setLoading(false);
+      return;
+    }
 
     // Quick heuristic: if user asks for resume, offer the link immediately
     const t = text.toLowerCase();
@@ -180,8 +218,8 @@ export default function Chatbot() {
       {/* Floating Dock Button */}
       {!open && (
         <button
-          onClick={() => setOpen(true)}
-          className="fixed z-[10000] bg-black text-white px-5 py-3 rounded-2xl shadow-xl hover:opacity-90 transition border border-white/90"
+          onClick={() => { setOpen(true); if (pinned) setShowQuick(true); }}
+          className="fixed z-[10000] px-5 py-3 rounded-2xl text-white bg-black border border-white/40 shadow-lg hover:bg-neutral-900 transition"
           style={floatingPos}
           aria-label="Open Ayush AI chat"
           title="Open Ayush AI"
@@ -193,7 +231,7 @@ export default function Chatbot() {
       {/* Chat Window */}
       {open && (
         <div
-          className="fixed z-[10000] w-80 md:w-96 h-[500px] bg-white shadow-2xl rounded-3xl flex flex-col overflow-hidden border border-black/10"
+          className="fixed z-[10000] w-80 md:w-96 h-[500px] bg-white/10 backdrop-blur-2xl border border-white/30 shadow-xl rounded-3xl flex flex-col overflow-hidden"
           style={floatingPos}
         >
           {/* Header */}
@@ -201,6 +239,45 @@ export default function Chatbot() {
             <span className="font-semibold">Ayush AI</span>
             <button onClick={() => setOpen(false)} className="text-white hover:opacity-70">✕</button>
           </div>
+
+          {showQuick && (
+            <div className="px-4 pt-3 bg-white/70 backdrop-blur border-b border-black/10">
+              <div className="text-xs text-neutral-600 mb-2">Quick links</div>
+              <div className="flex flex-wrap gap-2 pb-3">
+                <button
+                  onClick={() => quickNav('/case-studies', 'Opening Case Studies...')}
+                  className="px-3 py-1.5 rounded-full bg-neutral-100 border border-black/10 hover:bg-neutral-200 text-sm"
+                >
+                  Case Studies
+                </button>
+                <button
+                  onClick={() => quickNav('/projects', 'Opening Projects...')}
+                  className="px-3 py-1.5 rounded-full bg-neutral-100 border border-black/10 hover:bg-neutral-200 text-sm"
+                >
+                  Projects
+                </button>
+                <button
+                  onClick={() => quickNav('/about', 'Opening About...')}
+                  className="px-3 py-1.5 rounded-full bg-neutral-100 border border-black/10 hover:bg-neutral-200 text-sm"
+                >
+                  About
+                </button>
+                <button
+                  onClick={() => { setPinned(!pinned); if (!pinned) setShowQuick(true); }}
+                  className="px-2 py-1 text-xs text-neutral-600 hover:text-neutral-800 border border-black/10 rounded-md"
+                >
+                  {pinned ? "Unpin" : "Pin"}
+                </button>
+                <button
+                  onClick={() => setShowQuick(false)}
+                  className="ml-auto px-2 py-1 text-xs text-neutral-500 hover:text-neutral-700"
+                  aria-label="Hide quick links"
+                >
+                  Hide
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-neutral-50" aria-live="polite">
