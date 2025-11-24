@@ -1,21 +1,23 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Home from './components/Home';           // Home page component with all sections
-import ProjectPage from './components/ProjectPage'; // Separate Projects page component
-import AboutPage from './components/AboutPage';
 
-function App() {
+import Chatbot from "./components/Chatbot";
+import Layout from './core/Layout';
+import Home from './pages/Home';
+import Projects from './pages/Projects';
+import About from './pages/About';
+
+export default function App() {
   return (
     <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />         {/* Home page with button linking to projects */}
-        <Route path="/projects" element={<ProjectPage />} /> {/* Separate Projects page */}
-        <Route path="/About" element={<AboutPage />} />
-      </Routes>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </Layout>
+      <Chatbot />
     </Router>
   );
 }
-
-export default App;
