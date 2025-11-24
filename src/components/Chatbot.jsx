@@ -88,8 +88,6 @@ export default function Chatbot() {
     bottom: "calc(env(safe-area-inset-bottom) + 1.5rem)",
   };
 
-  // ---- OpenAI config (optional; local dev only) ----
-  const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
 
   const systemPrompt = useMemo(
     () =>
@@ -107,6 +105,8 @@ export default function Chatbot() {
     []
   );
 
+  // Note: In production, this component expects a serverless function at /api/chat
+  // that forwards the messages to OpenAI using your server-side OPENAI_API_KEY.
   async function sendMessage() {
     const text = input.trim();
     if (!text || loading) return;
@@ -155,38 +155,21 @@ export default function Chatbot() {
     }
 
     try {
-      if (!apiKey) {
-        // No API key — keep the classic placeholder so nothing breaks in prod/static
-        await new Promise((r) => setTimeout(r, 600));
-        setMessages((prev) => [
-          ...prev,
-          {
-            sender: "bot",
-            text:
-              "(Demo mode) This is a placeholder response. Add VITE_OPENAI_API_KEY in .env.local for live answers.",
-          },
-        ]);
-        return;
-      }
-
-      // Build short chat history
+      // Build short chat history (last 8 messages for context)
       const history = messages
         .slice(-8)
         .map((m) => ({ role: m.sender === "user" ? "user" : "assistant", content: m.text }));
 
-      const body = {
-        model: "gpt-4o-mini",
-        temperature: 0.6,
-        messages: [{ role: "system", content: systemPrompt }, ...history, { role: "user", content: text }],
-      };
-
-      const resp = await fetch("https://api.openai.com/v1/chat/completions", {
+      const resp = await fetch("/api/chat", {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: [
+            { role: "system", content: systemPrompt },
+            ...history,
+            { role: "user", content: text },
+          ],
+        }),
       });
 
       if (!resp.ok) {
@@ -195,9 +178,13 @@ export default function Chatbot() {
       }
 
       const data = await resp.json();
-      const answer = data?.choices?.[0]?.message?.content?.trim() || "Sorry — I couldn’t generate a response.";
+      const answer =
+        data?.choices?.[0]?.message?.content?.trim() ||
+        data?.message?.trim?.() ||
+        data?.reply?.trim?.() ||
+        "Sorry — I couldn’t generate a response.";
 
-      setMessages((prev) => [...prev, { sender: "bot", text: answer }] );
+      setMessages((prev) => [...prev, { sender: "bot", text: answer }]);
     } catch (e) {
       console.error(e);
       setError(String(e?.message || e));
@@ -205,7 +192,8 @@ export default function Chatbot() {
         ...prev,
         {
           sender: "bot",
-          text: "There was an issue contacting the AI service. Check your .env.local (VITE_OPENAI_API_KEY).",
+          text:
+            "There was an issue contacting the AI service. If you're on Vercel, add an /api/chat function and set OPENAI_API_KEY in the project settings.",
         },
       ]);
     } finally {
