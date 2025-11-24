@@ -1,12 +1,13 @@
 export default function Home() {
+  // Simple container wrapper to keep consistent width
   const Wrapper = ({ children, className = "" }) => (
-    <section className={"max-w-6xl mx-auto px-6 py-20 md:py-28 " + className}>{children}</section>
+    <section className={"max-w-6xl mx-auto px-6 " + className}>{children}</section>
   );
 
   return (
     <>
       {/* HERO */}
-      <Wrapper>
+      <Wrapper className="py-20 md:py-28 scroll-mt-24">
         <h1 className="text-5xl md:text-7xl font-semibold leading-tight tracking-tight">
           Building AI systems that make tough decisions simple.
         </h1>
@@ -31,8 +32,8 @@ export default function Home() {
       </Wrapper>
 
       {/* FEATURED AI */}
-      <section className="w-full py-20 bg-[#0b0b0c] text-white">
-        <div className="max-w-5xl mx-auto px-6">
+      <section className="w-full py-16 md:py-20 bg-[#0b0b0c] text-white">
+        <Wrapper>
           <h2 className="text-4xl md:text-5xl font-semibold">Applied AI & Intelligent Systems</h2>
           <p className="mt-4 text-neutral-300 text-lg md:max-w-3xl">
             A focused set of real-world AI + ML projects demonstrating LLM reasoning, optimization,
@@ -40,8 +41,8 @@ export default function Home() {
             strong problem framing, and enterprise-ready design.
           </p>
 
-          <div className="mt-12 grid md:grid-cols-3 gap-8">
-            <div className="border border-white/10 rounded-2xl p-6 hover:border-white/20 transition">
+          <div className="mt-10 grid md:grid-cols-3 gap-6">
+            <div className="h-full border border-white/10 rounded-2xl p-6 hover:border-white/20 transition">
               <h3 className="text-xl font-semibold">Wischeduler</h3>
               <p className="text-neutral-400 mt-2">
                 LLM-powered scheduling assistant that reduces conflicts and exports clean ICS schedules.
@@ -51,7 +52,7 @@ export default function Home() {
               </a>
             </div>
 
-            <div className="border border-white/10 rounded-2xl p-6 hover:border-white/20 transition">
+            <div className="h-full border border-white/10 rounded-2xl p-6 hover:border-white/20 transition">
               <h3 className="text-xl font-semibold">Wildfire ML Research</h3>
               <p className="text-neutral-400 mt-2">
                 SVM + Random Forest classifiers trained on wildfire risk and line loading features for shutoff analysis.
@@ -61,7 +62,7 @@ export default function Home() {
               </a>
             </div>
 
-            <div className="border border-white/10 rounded-2xl p-6 hover:border-white/20 transition">
+            <div className="h-full border border-white/10 rounded-2xl p-6 hover:border-white/20 transition">
               <h3 className="text-xl font-semibold">Gradey – AI Chatbot</h3>
               <p className="text-neutral-400 mt-2">
                 LLM assistant that parses schedules, reads images, and generates downloadable ICS files.
@@ -71,11 +72,11 @@ export default function Home() {
               </a>
             </div>
           </div>
-        </div>
+        </Wrapper>
       </section>
 
       {/* SHOWCASE (sticky media + bullets) */}
-      <Wrapper className="grid md:grid-cols-2 gap-12 items-start" id="case-studies">
+      <Wrapper className="py-20 md:py-24 grid md:grid-cols-2 gap-12 items-start" id="case-studies">
         <div className="sticky top-24">
           <div className="rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,.12)] bg-gradient-to-br from-neutral-100 to-neutral-200 aspect-[4/3] w-full flex items-center justify-center">
             <span className="text-neutral-500">Project media placeholder</span>

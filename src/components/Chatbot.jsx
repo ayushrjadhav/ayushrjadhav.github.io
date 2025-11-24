@@ -1,19 +1,66 @@
 // src/components/Chatbot.jsx
-import { useState, useMemo, useEffect } from "react";
 
-/**
- * Ayush AI — OpenAI-connected (client-side with optional proxy)
- *
- * Local (fast):
- *  1) Create .env.local with:
- *     VITE_OPENAI_API_KEY=sk-...
- *     VITE_USE_PROXY=0
- *  2) npm run dev
- *
- * Prod (safe):
- *  - Set VITE_USE_PROXY=1 and deploy /api/chat (serverless proxy below)
- *  - Never expose your OpenAI key client-side in production.
- */
+import { useState, useMemo } from "react";
+
+// --- Tiny safe formatter: escape → bold → bullets → links → paragraphs ---
+function escapeHTML(str) {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/\"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function linkify(html) {
+  const urlRe = /(https?:\/\/[\w.-]+(?:\/[\w\-._~:/?#[\]@!$&'()*+,;=]*)?)/gi;
+  return html.replace(urlRe, (m) => `<a href="${m}" target="_blank" rel="noopener noreferrer" class="underline hover:opacity-80">${m}</a>`);
+}
+
+function applyBold(html) {
+  // **bold** → <strong>
+  return html.replace(/\*\*(.+?)\*\*/g, '<strong>$1<\/strong>');
+}
+
+function mdFormat(text) {
+  // Escape first
+  const safe = escapeHTML(text || "");
+  const lines = safe.split(/\r?\n/);
+  const out = [];
+  let listOpen = false;
+
+  function closeList() { if (listOpen) { out.push('</ul>'); listOpen = false; } }
+
+  for (const raw of lines) {
+    const line = raw.trim();
+    if (!line) { closeList(); out.push('<p></p>'); continue; }
+
+    if (/^(?:[-•])\s+/.test(line)) {
+      if (!listOpen) { out.push('<ul class="ml-5 list-disc space-y-1">'); listOpen = true; }
+      const item = line.replace(/^(?:[-•])\s+/, '');
+      out.push(`<li>${applyBold(item)}</li>`);
+    } else {
+      closeList();
+      out.push(`<p>${applyBold(line)}</p>`);
+    }
+  }
+  closeList();
+
+  // Linkify at the end
+  return linkify(out.join('\n'));
+}
+
+// --- Typing dots animation (no extra deps) ---
+function TypingDots() {
+  const dotCls = "inline-block h-2 w-2 rounded-full bg-neutral-400";
+  return (
+    <div className="flex items-center gap-1" aria-hidden>
+      <span className={`${dotCls} animate-bounce`} style={{ animationDelay: "0ms" }} />
+      <span className={`${dotCls} animate-bounce`} style={{ animationDelay: "120ms" }} />
+      <span className={`${dotCls} animate-bounce`} style={{ animationDelay: "240ms" }} />
+    </div>
+  );
+}
 
 export default function Chatbot() {
   const [open, setOpen] = useState(false);
@@ -24,72 +71,83 @@ export default function Chatbot() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // ---- Placement: bottom-right + safe-area (iOS notch) ----
+  const floatingPos = {
+    right: "1.5rem",
+    bottom: "calc(env(safe-area-inset-bottom) + 1.5rem)",
+  };
+
+  // ---- OpenAI config (optional; local dev only) ----
   const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
-  const useProxy = String(import.meta.env.VITE_USE_PROXY || "0") === "1";
-  const endpoint = useProxy ? "/api/chat" : "https://api.openai.com/v1/chat/completions";
 
   const systemPrompt = useMemo(
     () =>
       [
-        "You are Ayush AI, a helpful assistant for ayushjadhav.com.",
-        "Be concise, specific, and friendly. Use bullets for lists.",
-        "If asked about projects, focus on: Wischeduler (LLM+optimization), Wildfire ML (SVM/RF on risk & line loading), Gradey chatbot (.ics export), Cloud AI (Azure OpenAI + AWS Lambda), and Frontend Systems (React/Vite).",
-        "If asked for a resume, direct to /resume.pdf on the site.",
-        "If you don't know something, say so briefly and suggest the Projects page.",
+        "You are Ayush AI, a polished and professional assistant for ayushjadhav.com.",
+        "Speak with clarity, confidence, and professionalism. Format answers cleanly, using short paragraphs and crisp bullet points.",
+        "Primary description of Ayush (use this when summarizing him):",
+        "Ayush is an Applied AI Engineer who specializes in building scalable, production-ready AI agents and operational machine-learning systems. His work spans generative AI workflows, predictive modeling, optimization engines, and full-stack application development. He has designed systems using Azure OpenAI, AWS Lambda, .NET, React, SQL, and modern cloud architectures.",
+        "His past work includes wildfire‑risk prediction using SVM/Random Forest models, an LLM-powered scheduling system used by hundreds of students, and enterprise software enhancements within WEC Energy Group’s operational ecosystem. Ayush combines engineering discipline with product intuition—focusing on reliability, clarity, and business impact in every solution he builds.",
+        "In short: Ayush is someone who can design, build, deploy, and support AI systems that matter in real operations.",
+        "When asked about his background, skills, résumé, or experience, use the above description.",
+        "When asked for the résumé, link to /resume.pdf and offer a brief summary.",
+        "If you don’t know something, be concise and direct the user to the Projects page.",
       ].join(" "),
     []
   );
-
-  useEffect(() => {
-    console.log("Ayush AI — useProxy:", useProxy ? "ON (/api/chat)" : "OFF (direct)");
-    console.log("Ayush AI — API key present:", !!apiKey);
-  }, [useProxy, apiKey]);
 
   async function sendMessage() {
     const text = input.trim();
     if (!text || loading) return;
 
     setError("");
-    const next = [...messages, { sender: "user", text }];
-    setMessages(next);
+    setMessages((prev) => [...prev, { sender: "user", text }]);
     setInput("");
     setLoading(true);
 
+    // Quick heuristic: if user asks for resume, offer the link immediately
+    const t = text.toLowerCase();
+    if (t.includes("resume") || t.includes("cv")) {
+      setMessages((prev) => [
+        ...prev,
+        { sender: "bot", text: "Here’s the résumé: /resume.pdf — want a brief summary?" },
+      ]);
+      setLoading(false);
+      return;
+    }
+
     try {
-      if (!useProxy && !apiKey) {
-        await new Promise((r) => setTimeout(r, 300));
+      if (!apiKey) {
+        // No API key — keep the classic placeholder so nothing breaks in prod/static
+        await new Promise((r) => setTimeout(r, 600));
         setMessages((prev) => [
           ...prev,
           {
             sender: "bot",
             text:
-              "OpenAI key not found. Add VITE_OPENAI_API_KEY to .env.local and restart dev server. For production, use a serverless proxy.",
+              "(Demo mode) This is a placeholder response. Add VITE_OPENAI_API_KEY in .env.local for live answers.",
           },
         ]);
         return;
       }
 
-      const history = next.slice(-10).map((m) => ({
-        role: m.sender === "user" ? "user" : "assistant",
-        content: m.text,
-      }));
+      // Build short chat history
+      const history = messages
+        .slice(-8)
+        .map((m) => ({ role: m.sender === "user" ? "user" : "assistant", content: m.text }));
 
       const body = {
         model: "gpt-4o-mini",
         temperature: 0.6,
-        messages: [{ role: "system", content: systemPrompt }, ...history],
+        messages: [{ role: "system", content: systemPrompt }, ...history, { role: "user", content: text }],
       };
 
-      const headers = useProxy
-        ? { "Content-Type": "application/json" }
-        : {
-            Authorization: `Bearer ${apiKey}`,
-            "Content-Type": "application/json",
-          };
-
-      const resp = await fetch(endpoint, {
+      const resp = await fetch("https://api.openai.com/v1/chat/completions", {
         method: "POST",
-        headers,
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(body),
       });
 
@@ -99,14 +157,9 @@ export default function Chatbot() {
       }
 
       const data = await resp.json();
-      const answer = useProxy
-        ? (data?.answer ?? data?.choices?.[0]?.message?.content)
-        : data?.choices?.[0]?.message?.content;
+      const answer = data?.choices?.[0]?.message?.content?.trim() || "Sorry — I couldn’t generate a response.";
 
-      setMessages((prev) => [
-        ...prev,
-        { sender: "bot", text: (answer || "Sorry — I couldn't generate a response.").trim() },
-      ]);
+      setMessages((prev) => [...prev, { sender: "bot", text: answer }] );
     } catch (e) {
       console.error(e);
       setError(String(e?.message || e));
@@ -114,8 +167,7 @@ export default function Chatbot() {
         ...prev,
         {
           sender: "bot",
-          text:
-            "There was an issue contacting the AI service. Check .env.local (VITE_OPENAI_API_KEY), network, or enable VITE_USE_PROXY=1 with a serverless /api/chat.",
+          text: "There was an issue contacting the AI service. Check your .env.local (VITE_OPENAI_API_KEY).",
         },
       ]);
     } finally {
@@ -125,51 +177,53 @@ export default function Chatbot() {
 
   return (
     <>
-      {/* Floating Dock Button with tiny status dot */}
+      {/* Floating Dock Button */}
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed bottom-6 right-6 bg-black text-white px-5 py-3 rounded-2xl shadow-xl hover:opacity-90 transition relative"
-          title={useProxy ? "Proxy mode" : apiKey ? "Direct mode" : "Key missing"}
+          className="fixed z-[10000] bg-black text-white px-5 py-3 rounded-2xl shadow-xl hover:opacity-90 transition border border-white/90"
+          style={floatingPos}
+          aria-label="Open Ayush AI chat"
+          title="Open Ayush AI"
         >
           Ayush AI
-          <span
-            className={`absolute -top-1 -right-1 h-3 w-3 rounded-full ${
-              useProxy ? "bg-emerald-500" : apiKey ? "bg-sky-500" : "bg-red-500"
-            }`}
-          />
         </button>
       )}
 
       {/* Chat Window */}
       {open && (
-        <div className="fixed bottom-6 right-6 w-80 md:w-96 h-[500px] bg-white shadow-2xl rounded-2xl flex flex-col overflow-hidden border border-black/10">
+        <div
+          className="fixed z-[10000] w-80 md:w-96 h-[500px] bg-white shadow-2xl rounded-3xl flex flex-col overflow-hidden border border-black/10"
+          style={floatingPos}
+        >
           {/* Header */}
           <div className="p-4 bg-black text-white flex justify-between items-center">
             <span className="font-semibold">Ayush AI</span>
-            <button onClick={() => setOpen(false)} className="text-white hover:opacity-70">
-              ✕
-            </button>
+            <button onClick={() => setOpen(false)} className="text-white hover:opacity-70">✕</button>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-neutral-50">
+          <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-neutral-50" aria-live="polite">
             {messages.map((msg, i) => (
               <div
                 key={i}
-                className={`max-w-[75%] px-4 py-2 rounded-xl ${
+                className={`max-w-[78%] px-4 py-3 rounded-2xl break-words ${
                   msg.sender === "user"
-                    ? "ml-auto bg-black text-white"
-                    : "bg-white border border-black/10"
+                    ? "ml-auto bg-gradient-to-b from-black to-neutral-900 text-white shadow-sm"
+                    : "bg-white border border-black/10 shadow-sm"
                 }`}
               >
-                {msg.text}
+                <div
+                  className="text-[15px] leading-7 tracking-[-0.005em] whitespace-pre-wrap selection:bg-black/10 [&_p]:mb-2 [&_ul]:mb-2 [&_strong]:font-semibold"
+                  dangerouslySetInnerHTML={{ __html: mdFormat(msg.text) }}
+                />
               </div>
             ))}
 
             {loading && (
-              <div className="max-w-[60%] px-4 py-2 rounded-xl bg-white border border-black/10">
-                <span className="inline-block animate-pulse">Thinking…</span>
+              <div className="max-w-[60%] px-4 py-3 rounded-2xl bg-white border border-black/10 shadow-sm inline-flex items-center gap-3">
+                <TypingDots />
+                <span className="sr-only">Ayush AI is typing</span>
               </div>
             )}
 
