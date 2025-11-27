@@ -32,6 +32,16 @@ export default function ProjectCard({ item, onOpen }) {
             </span>
           ))}
         </div>
+        <div className="mt-4">
+          <button
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full 
+            border border-neutral-300 text-neutral-700 text-sm font-medium 
+            transition-all duration-200 group-hover:border-black group-hover:text-black"
+          >
+            View Project
+            <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
+          </button>
+        </div>
       </div>
     </button>
   );

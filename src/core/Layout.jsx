@@ -17,7 +17,7 @@ export default function Layout({ children }) {
 
       <footer className="border-t border-black/10 mt-24">
         <div className="max-w-6xl mx-auto px-6 py-12 text-sm text-neutral-500">
-          Designed by Ayush in Madison.
+          Designed by Ayush.
         </div>
       </footer>
     </div>
