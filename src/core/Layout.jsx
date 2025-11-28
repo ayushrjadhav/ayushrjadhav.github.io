@@ -1,4 +1,9 @@
+import { useLocation } from "react-router-dom";
+
 export default function Layout({ children }) {
+  const { pathname } = useLocation();
+  const hideFooter = pathname.toLowerCase().includes("ayushai");
+
   return (
     <div className="min-h-screen bg-white text-black antialiased">
       <header className="sticky top-0 z-50 backdrop-blur bg-white/70 border-b border-black/10">
@@ -9,17 +14,20 @@ export default function Layout({ children }) {
             <a href="/projects">Projects</a>
             <a href="/case-studies">Case Studies</a>
             <a href="/about">About</a>
+            <a href="/AyushAI">AyushAI</a>
           </div>
         </nav>
       </header>
 
       <main>{children}</main>
 
-      <footer className="border-t border-black/10 mt-24">
-        <div className="max-w-6xl mx-auto px-6 py-12 text-sm text-neutral-500">
-          Designed by Ayush.
-        </div>
-      </footer>
+      {!hideFooter && (
+        <footer className="border-t border-black/10 mt-24">
+          <div className="max-w-6xl mx-auto px-6 py-12 text-sm text-neutral-500">
+            Designed by Ayush.
+          </div>
+        </footer>
+      )}
     </div>
   );
 }

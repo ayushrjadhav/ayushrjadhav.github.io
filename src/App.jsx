@@ -10,6 +10,7 @@ import CaseStudies from "./pages/CaseStudies";
 import WischedulerCase from "./pages/case/Wischeduler";
 import WildfireMLCase from "./pages/case/WildfireML";
 import GradeyCase from "./pages/case/Gradey";
+import AyushAI from "./pages/AyushAI";
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
           <Route path="/case-studies/wischeduler" element={<WischedulerCase />} />
           <Route path="/case-studies/wildfire-ml" element={<WildfireMLCase />} />
           <Route path="/case-studies/gradey" element={<GradeyCase />} />
+          <Route path="/AyushAI" element={<AyushAI />} />
         </Routes>
       </Layout>
       <Chatbot />

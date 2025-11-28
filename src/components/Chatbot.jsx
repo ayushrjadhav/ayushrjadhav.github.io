@@ -1,7 +1,7 @@
 // src/components/Chatbot.jsx
 
 import { useState, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // --- Tiny safe formatter: escape → bold → bullets → links → paragraphs ---
 function escapeHTML(str) {
@@ -65,6 +65,10 @@ function TypingDots() {
 
 export default function Chatbot() {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  if (pathname.toLowerCase().includes("ayushai")) {
+    return null;
+  }
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([
     { sender: "bot", text: "Hi! I'm Ayush AI. Ask me about his projects or skills!" },
@@ -274,7 +278,7 @@ export default function Chatbot() {
                 key={i}
                 className={`max-w-[78%] px-4 py-3 rounded-2xl break-words ${
                   msg.sender === "user"
-                    ? "ml-auto bg-gradient-to-b from-black to-neutral-900 text-white shadow-sm"
+                    ? "ml-auto bg-white text-black border border-black/10 shadow-sm"
                     : "bg-white border border-black/10 shadow-sm"
                 }`}
               >
