@@ -13,7 +13,7 @@ export default function AyushAI() {
   const listRef = useRef(null);
 
   useEffect(() => {
-    document.title = "Ayush AI — Chat";
+    document.title = "Ayush AI (beta) — Chat";
   }, []);
 
   useEffect(() => {
@@ -148,7 +148,7 @@ export default function AyushAI() {
         <section className="w-full max-w-2xl mx-auto px-6">
           <p className="text-2xl font-medium text-neutral-700 dark:text-neutral-300">Hi!</p>
           <h1 className="mt-1 text-6xl md:text-7xl font-semibold tracking-tight">
-            I’m <span className="font-extrabold">AyushAI</span>
+            I’m <span className="font-extrabold">AyushAI</span> <span className="text-neutral-500 text-3xl align-top">(beta)</span>
           </h1>
           <p className="mt-5 text-lg text-neutral-600 dark:text-neutral-300">
             Ask about projects, skills, case studies, or architecture.  

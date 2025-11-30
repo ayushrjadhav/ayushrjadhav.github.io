@@ -51,7 +51,7 @@ export default function CaseStudies() {
         <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">Case Studies</h1>
         <p className="mt-4 text-neutral-600 max-w-2xl">
           A focused set of projects demonstrating applied AI/ML and product thinking. Each story
-          follows a consistent problem → approach → result flow for quick recruiter review.
+          follows a consistent problem → approach → result flow for quick review.
         </p>
 
         <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">

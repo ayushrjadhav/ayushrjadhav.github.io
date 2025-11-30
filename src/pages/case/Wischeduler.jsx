@@ -42,9 +42,12 @@ export default function WischedulerCase() {
               </div>
             </div>
 
-            {/* Media placeholder (replace with an image or diagram in /public) */}
-            <div className="rounded-2xl bg-neutral-100 border border-black/10 aspect-[4/3] w-full flex items-center justify-center">
-              <span className="text-neutral-500">Add a product screenshot at /public/wischeduler.png</span>
+            <div className="rounded-2xl overflow-hidden border border-black/10 aspect-[4/3] w-full">
+              <img
+                src="/Wischeduler.jpg"
+                alt="Wischeduler Screenshot"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
 
