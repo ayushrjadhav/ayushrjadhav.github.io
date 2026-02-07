@@ -86,11 +86,11 @@ export default function Home() {
                             </a>
                         </div>
 
-                        {/* Gradey */}
+                        {/* Tally AI */}
                         <div className="border border-white/10 rounded-2xl p-6 hover:border-white/20 transition">
-                            <h3 className="text-xl font-semibold">Gradey – AI Chatbot</h3>
+                            <h3 className="text-xl font-semibold">Tally AI</h3>
                             <p className="text-neutral-400 mt-2">
-                                LLM assistant that parses schedules, reads images, and generates downloadable .ics files.
+                                Agentic AI budgeting system that analyzes spending behavior, loans, and recurring expenses to generate adaptive financial recommendations.
                             </p>
                             <a href="/projects" className="text-blue-400 mt-3 inline-block hover:underline">
                                 View Project →
@@ -125,7 +125,7 @@ export default function Home() {
 
                   <div className="grid gap-4">
                     <Link
-                      to="/case-studies/wischeduler"
+                      to="/case/wischeduler"
                       className="group rounded-2xl border border-black/10 hover:border-black/20 bg-white p-5 transition"
                     >
                       <div className="flex items-center justify-between gap-4">
@@ -138,7 +138,7 @@ export default function Home() {
                     </Link>
 
                     <Link
-                      to="/case-studies/wildfire-ml"
+                      to="/case/wildfire-ml"
                       className="group rounded-2xl border border-black/10 hover:border-black/20 bg-white p-5 transition"
                     >
                       <div className="flex items-center justify-between gap-4">
@@ -151,15 +151,15 @@ export default function Home() {
                     </Link>
 
                     <Link
-                      to="/case-studies/gradey"
+                      to="/case/tally-ai"
                       className="group rounded-2xl border border-black/10 hover:border-black/20 bg-white p-5 transition"
                     >
                       <div className="flex items-center justify-between gap-4">
-                        <h3 className="text-xl font-semibold">Gradey — GPA & Professor Recommendations</h3>
+                        <h3 className="text-xl font-semibold">Tally AI — Agentic Budgeting System</h3>
                         <span className="text-neutral-500 group-hover:text-neutral-900 transition">Read →</span>
                       </div>
                       <p className="mt-2 text-neutral-600">
-                        Data-backed course picks aligned to GPA goals, plus schedule tooling.
+                        Cloud-native AI agent that monitors spending patterns and produces adaptive, explainable budget recommendations.
                       </p>
                     </Link>
                   </div>
