@@ -31,7 +31,6 @@ export default function Home() {
                 </h1>
 
                 <p className="mt-6 text-lg text-neutral-600 max-w-2xl">
-                    Wildfire shutoff optimization. Intelligent scheduling.
                     Precision data systems designed for clarity, not complexity.
                 </p>
 
@@ -115,29 +114,65 @@ export default function Home() {
                     />
                 </div>
 
-                {/* Case Study Bullets */}
-                <ul className="space-y-10">
-                    <li>
-                        <h3 className="text-3xl font-semibold">Optimized decision engine</h3>
-                        <p className="mt-2 text-neutral-600">
-                            Balances constraints, wildfire risk, and grid reliability using ML + optimization.
-                        </p>
-                    </li>
+                {/* Featured Case Studies */}
+                <div className="space-y-8">
+                  <div>
+                    <h2 className="text-4xl font-semibold tracking-tight">Featured case studies</h2>
+                    <p className="mt-3 text-neutral-600 max-w-xl">
+                      Short, scannable deep-dives into applied systems: constraints, models, and outcomes.
+                    </p>
+                  </div>
 
-                    <li>
-                        <h3 className="text-3xl font-semibold">Clear, explainable decisions</h3>
-                        <p className="mt-2 text-neutral-600">
-                            Outputs include transparent reasoning so operators understand and adjust recommendations confidently.
-                        </p>
-                    </li>
+                  <div className="grid gap-4">
+                    <Link
+                      to="/case/wischeduler"
+                      className="group rounded-2xl border border-black/10 hover:border-black/20 bg-white p-5 transition"
+                    >
+                      <div className="flex items-center justify-between gap-4">
+                        <h3 className="text-xl font-semibold">Wischeduler — LLM + Optimization</h3>
+                        <span className="text-neutral-500 group-hover:text-neutral-900 transition">Read →</span>
+                      </div>
+                      <p className="mt-2 text-neutral-600">
+                        Natural-language constraints → solver-ready schedules → .ics export.
+                      </p>
+                    </Link>
 
-                    <li>
-                        <h3 className="text-3xl font-semibold">Real results</h3>
-                        <p className="mt-2 text-neutral-600">
-                            Wischeduler reduced scheduling conflicts by ~20% in capstone benchmarks.
-                        </p>
-                    </li>
-                </ul>
+                    <Link
+                      to="/case/wildfire-ml"
+                      className="group rounded-2xl border border-black/10 hover:border-black/20 bg-white p-5 transition"
+                    >
+                      <div className="flex items-center justify-between gap-4">
+                        <h3 className="text-xl font-semibold">Wildfire ML — Risk & Line Loading</h3>
+                        <span className="text-neutral-500 group-hover:text-neutral-900 transition">Read →</span>
+                      </div>
+                      <p className="mt-2 text-neutral-600">
+                        Interpretable SVM/RF boundaries for shutoff analysis and policy discussion.
+                      </p>
+                    </Link>
+
+                    <Link
+                      to="/case/gradey"
+                      className="group rounded-2xl border border-black/10 hover:border-black/20 bg-white p-5 transition"
+                    >
+                      <div className="flex items-center justify-between gap-4">
+                        <h3 className="text-xl font-semibold">Gradey — GPA & Professor Recommendations</h3>
+                        <span className="text-neutral-500 group-hover:text-neutral-900 transition">Read →</span>
+                      </div>
+                      <p className="mt-2 text-neutral-600">
+                        Data-backed course picks aligned to GPA goals, plus schedule tooling.
+                      </p>
+                    </Link>
+                  </div>
+
+                  <div className="pt-2">
+                    <Link
+                      to="/case-studies"
+                      className="inline-flex items-center gap-2 text-neutral-900 font-medium hover:opacity-70"
+                    >
+                      See all case studies <span aria-hidden>→</span>
+                    </Link>
+                  </div>
+                </div>
             </Wrapper>
         </>
     );
