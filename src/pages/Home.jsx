@@ -125,7 +125,7 @@ export default function Home() {
 
                   <div className="grid gap-4">
                     <Link
-                      to="/case/wischeduler"
+                      to="/case-studies/wischeduler"
                       className="group rounded-2xl border border-black/10 hover:border-black/20 bg-white p-5 transition"
                     >
                       <div className="flex items-center justify-between gap-4">
@@ -138,7 +138,7 @@ export default function Home() {
                     </Link>
 
                     <Link
-                      to="/case/wildfire-ml"
+                      to="/case-studies/wildfire-ml"
                       className="group rounded-2xl border border-black/10 hover:border-black/20 bg-white p-5 transition"
                     >
                       <div className="flex items-center justify-between gap-4">
@@ -151,7 +151,7 @@ export default function Home() {
                     </Link>
 
                     <Link
-                      to="/case/gradey"
+                      to="/case-studies/gradey"
                       className="group rounded-2xl border border-black/10 hover:border-black/20 bg-white p-5 transition"
                     >
                       <div className="flex items-center justify-between gap-4">
