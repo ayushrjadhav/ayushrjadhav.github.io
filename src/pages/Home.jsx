@@ -102,11 +102,11 @@ export default function Home() {
 
             {/* CASE STUDY SHOWCASE */}
             <Wrapper
-                className="py-20 md:py-24 grid md:grid-cols-2 gap-12 items-start"
+                className="py-20 md:py-24 grid md:grid-cols-2 gap-12 items-center"
                 id="case-studies"
             >
                 {/* Sticky Image Placeholder */}
-                <div className="sticky top-24">
+                <div className="sticky top-32">
                     <img
                         src="/Homepage.jpg"
                         alt="Homepage showcase"
@@ -125,7 +125,7 @@ export default function Home() {
 
                   <div className="grid gap-4">
                     <Link
-                      to="/case/wischeduler"
+                      to="/case-studies/wischeduler"
                       className="group rounded-2xl border border-black/10 hover:border-black/20 bg-white p-5 transition"
                     >
                       <div className="flex items-center justify-between gap-4">
@@ -138,7 +138,7 @@ export default function Home() {
                     </Link>
 
                     <Link
-                      to="/case/wildfire-ml"
+                      to="/case-studies/wildfire-ml"
                       className="group rounded-2xl border border-black/10 hover:border-black/20 bg-white p-5 transition"
                     >
                       <div className="flex items-center justify-between gap-4">
@@ -151,7 +151,7 @@ export default function Home() {
                     </Link>
 
                     <Link
-                      to="/case/tally-ai"
+                      to="/case-studies/tally-ai"
                       className="group rounded-2xl border border-black/10 hover:border-black/20 bg-white p-5 transition"
                     >
                       <div className="flex items-center justify-between gap-4">
