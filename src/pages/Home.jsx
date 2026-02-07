@@ -103,7 +103,7 @@ export default function Home() {
             {/* CASE STUDY SHOWCASE */}
             <Wrapper
                 className="py-20 md:py-24 grid md:grid-cols-2 gap-12 items-center"
-                id="case-studies"
+                id="featured-case-studies"
             >
                 {/* Sticky Image Placeholder */}
                 <div className="sticky top-32">
