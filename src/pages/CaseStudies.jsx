@@ -14,7 +14,7 @@ export default function CaseStudies() {
 
     metaDesc.setAttribute(
       "content",
-      "In‑depth AI engineering case studies by Ayush Jadhav — covering Wischeduler (LLM + optimization), Wildfire ML (SVM/RF), and Gradey (AI assistant with .ics generation)."
+      "In‑depth AI engineering case studies by Ayush Jadhav — covering Wischeduler (LLM + optimization), Wildfire ML (SVM/RF), and Tally AI (agentic budgeting and financial recommendations)."
     );
   }, []);
   const Wrapper = ({ children, className = "" }) => (
@@ -37,11 +37,18 @@ export default function CaseStudies() {
         "Models wildfire risk vs. line loading to study shutoff decisions; interpretable boundaries and feature impacts.",
     },
     {
+      slug: "tally-ai",
+      tag: "Agentic AI",
+      title: "Tally AI – Budgeting & Finance",
+      blurb:
+        "Agentic AI system that analyzes spending patterns and generates adaptive, explainable budget recommendations.",
+    },
+    {
       slug: "gradey",
       tag: "Realtime Assistant",
       title: "Gradey – AI Chatbot",
       blurb:
-        "Parses text/images of schedules and generates downloadable .ics. Built with React + Vite, focused on DX and UX.",
+        "GPA, professor, and course recommendations with calendar (.ics) generation and scheduling support.",
     },
   ];
 
