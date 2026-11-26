@@ -1,8 +1,10 @@
+import { ayushAnswers } from "../src/data/ayushAnswers.js";
 import { projects } from "../src/data/projectdata.js";
 import { education, experience, leadership, skills } from "../src/data/profile.js";
 
 const portfolio = [
   { label: "Resume", path: "/about", details: { experience, leadership, education, skills } },
+  { label: "WEC experience", path: "/about#experience", details: experience.filter(({ organization }) => organization === "WEC Energy Group") },
   ...projects.map(({ id, title, category, tagline, role, stack, highlights }) => ({
     label: title,
     path: `/projects/${id}`,
@@ -17,6 +19,8 @@ const instructions = [
   'Return a JSON object with "reply" (concise plain text) and "sources" (an array of relevant paths from the portfolio).',
   "For resume requests, include /about as a source and direct visitors to the Preview Resume button.",
   JSON.stringify(portfolio),
+  "These prepared answers describe Ayush’s perspective in his portfolio voice. Use them for related questions and follow-ups.",
+  JSON.stringify(ayushAnswers),
 ].join("\n");
 
 const requests = new Map();

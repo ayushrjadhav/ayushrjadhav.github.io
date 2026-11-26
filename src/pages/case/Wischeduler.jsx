@@ -22,15 +22,14 @@ export default function WischedulerCase() {
                 Wischeduler — LLM + Optimization
               </h1>
               <p className="mt-4 text-neutral-600">
-                An LLM-assisted scheduling tool that translates natural-language constraints into a
-                solvable plan, then exports conflict-free timetables as calendar files (.ics).
+                <strong>First place at the ECE Capstone Showcase.</strong> I led the AI and optimization design and built the React interface, constraint engine, and calendar export. Students can enter their preferences in plain language and get a conflict-free timetable.
               </p>
             </div>
 
             <div className="rounded-2xl overflow-hidden border border-black/10 aspect-[4/3] w-full">
               <img
                 src="/Wischeduler.jpg"
-                alt="Wischeduler Screenshot"
+                alt="Wischeduler capstone poster"
                 className="w-full h-full object-cover"
               />
             </div>

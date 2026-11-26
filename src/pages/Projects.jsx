@@ -1,4 +1,5 @@
 import { Link, useParams } from "react-router-dom";
+import AllProjectsLink from "../core/AllProjectsLink";
 import { ProjectGrid } from "../core/ProjectGrid";
 import { projects } from "../data/projectdata";
 import Wischeduler from "./case/Wischeduler";
@@ -27,7 +28,7 @@ export function ProjectDetail() {
 
   return (
     <>
-      <div className="shell project-back"><Link to="/projects">All projects</Link></div>
+      <div className="shell project-back"><AllProjectsLink /></div>
       <div className="case-study"><CaseStudy project={project} /></div>
     </>
   );

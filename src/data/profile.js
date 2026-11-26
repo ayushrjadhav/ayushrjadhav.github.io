@@ -59,11 +59,20 @@ export const leadership = {
   bullets: ["Represented engineering students in university governance and coordinated operations across committees."],
 };
 
-export const education = {
-  school: "University of Wisconsin–Madison",
-  degree: "B.S. in Computer Engineering and Computer Sciences",
-  date: "May 2025",
-};
+export const education = [
+  {
+    school: "Georgia Institute of Technology",
+    degree: "Master of Science in Computer Science",
+    programType: "Professional master’s program",
+    date: "Starts Spring 2027",
+    emphasis: "Artificial Intelligence and Machine Learning",
+  },
+  {
+    school: "University of Wisconsin–Madison",
+    degree: "B.S. in Computer Engineering and Computer Sciences",
+    date: "May 2025",
+  },
+];
 
 export const skills = [
   ["Software engineering", "Python, C#, .NET, Java, C++, SQL, React, REST APIs"],

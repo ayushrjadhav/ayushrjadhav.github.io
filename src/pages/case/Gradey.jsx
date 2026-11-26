@@ -9,7 +9,7 @@ export default function GradeyCase() {
     <>
       <CaseHero
         title="Gradey — AI Chatbot"
-        description="A personalized academic assistant that recommends courses based on GPA goals, professor history, grade distributions, and student outcomes, with optional schedule parsing and .ics export."
+        description="I built the recommendation engine, GPA-impact model, and interface. Gradey helps students compare courses and professors against their GPA goals and can turn a schedule into a calendar file."
         image="/Gradey.png"
         imageAlt="Gradey chatbot interface"
         stats={[

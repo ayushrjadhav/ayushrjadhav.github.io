@@ -1,6 +1,6 @@
 # Ayush Jadhav portfolio
 
-Run `npm install` and `npm run dev` for the Vite frontend. Build with `npm run build`.
+Use Node.js 26. If you use nvm, run `nvm install` and `nvm use` from the repository root. Run `npm ci` and `npm run dev` for the Vite frontend. Build with `npm run build`.
 
 ## AyushAI
 

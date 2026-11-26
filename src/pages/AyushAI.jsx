@@ -1,13 +1,8 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { ayushAnswers } from "../data/ayushAnswers";
 
 const endpoint = import.meta.env.VITE_AYUSH_AI_ENDPOINT || "/api/chat";
-const starters = [
-  "How did Wischeduler handle course conflicts?",
-  "What did Ayush build at WEC Energy Group?",
-  "How did the wildfire research model power shutoffs?",
-];
-
 function Reply({ message }) {
   return (
     <div className={`message ${message.role}`}>
@@ -27,6 +22,12 @@ export default function AyushAI() {
   const [error, setError] = useState("");
   const active = useRef(false);
   const transcript = useRef(null);
+
+  function scrollToLatest() {
+    requestAnimationFrame(() => {
+      if (transcript.current) transcript.current.scrollTop = transcript.current.scrollHeight;
+    });
+  }
 
   async function send(messages) {
     if (active.current) return;
@@ -54,9 +55,7 @@ export default function AyushAI() {
     } finally {
       active.current = false;
       setPending(false);
-      requestAnimationFrame(() => {
-        if (transcript.current) transcript.current.scrollTop = transcript.current.scrollHeight;
-      });
+      scrollToLatest();
     }
   }
 
@@ -65,7 +64,17 @@ export default function AyushAI() {
     if (!content || active.current) return;
     setDraft("");
     const previous = error ? history.slice(0, -1) : history;
-    send([...previous, { role: "user", content }]);
+    const messages = [...previous, { role: "user", content }];
+    const prepared = ayushAnswers.find(({ question }) =>
+      question.toLowerCase().replace(/\?$/, "") === content.toLowerCase().replace(/\?$/, "")
+    );
+    if (prepared) {
+      setError("");
+      setHistory([...messages, { role: "assistant", content: prepared.answer, sources: [prepared.source] }]);
+      scrollToLatest();
+    } else {
+      send(messages);
+    }
   }
 
   return (
@@ -74,7 +83,7 @@ export default function AyushAI() {
       <p className="lede">Ask about my projects, engineering experience, or resume.</p>
       <div className="chat-panel">
         {history.length === 0 && <div className="starters">
-          {starters.map((question) => <button type="button" className="button secondary" key={question} onClick={() => ask(question)}>{question}</button>)}
+          {ayushAnswers.map(({ question }) => <button type="button" className="button secondary" key={question} onClick={() => ask(question)}>{question}</button>)}
         </div>}
         <div className="transcript" role="log" aria-label="Conversation" ref={transcript}>
           {history.map((message, index) => <Reply key={index} message={message} />)}

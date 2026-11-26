@@ -22,23 +22,25 @@ export default function WildfireMLCase() {
                 Wildfire ML — Risk & Line Loading
               </h1>
               <p className="mt-4 text-neutral-600">
-                Interpretable classifiers (SVM & Random Forest) that help analyze and improve
-                public safety power shutoff decisions using wildfire risk and line‑loading
-                features—aiming for fewer unnecessary shutoffs and safer operations.
+                I engineered features, tuned the classifiers, and plotted their shutoff decisions. Wildfire risk showed a stronger separation than line loading, and Random Forest captured a more granular boundary than the linear SVM.
               </p>
             </div>
-
-            <div className="rounded-2xl overflow-hidden border border-black/10 aspect-[4/3] w-full">
-              <img
-                src="/Wildfire.jpg"
-                alt="Wildfire ML Decision Boundary"
-                className="w-full h-full object-cover"
-              />
-            </div>
+            <figure className="wildfire-chart">
+              <div className="wildfire-chart-plot">
+                <img src="/wildfire-decision-boundary.webp" alt="Random Forest decision boundary for wildfire risk versus line loading. Most low-risk observations are classified as operational; the high-risk region contains more predicted shutoffs." />
+                <span className="chart-marker chart-marker-risk" aria-hidden="true">1</span>
+                <span className="chart-marker chart-marker-boundary" aria-hidden="true">2</span>
+              </div>
+              <figcaption>
+                <p><strong>1. Risk drives separation.</strong> Predicted shutoffs cluster toward the higher-risk side of the chart.</p>
+                <p><strong>2. Random Forest adds detail.</strong> The stepped boundary captures local pockets that a smoother SVM boundary misses.</p>
+                <p><a className="underline" href="/Wildfire.jpg" target="_blank" rel="noopener">View the full research poster</a></p>
+              </figcaption>
+            </figure>
           </div>
 
           <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Stat k="Samples" v="10k+ line‑days" />
+            <Stat k="Samples" v="8,700+ hourly records" />
             <Stat k="Models" v="Linear SVM / RF" />
             <Stat k="Goal" v="Reduce false shutoffs" />
             <Stat k="Stack" v="Python • sklearn" />

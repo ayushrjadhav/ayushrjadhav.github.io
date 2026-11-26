@@ -2,6 +2,7 @@
 export const projects = [
   {
     id: "wischeduler",
+    cardSummary: "First place at the ECE Capstone Showcase.",
     category: "LLMs & optimization",
     title: "Wischeduler",
     tagline: "Turns course requirements and preferences into conflict-free schedules.",
@@ -18,6 +19,7 @@ export const projects = [
   }, 
   {
     id: "wildfire-ml",
+    cardSummary: "Modeling when to shut off power during wildfire risk.",
     category: "Applied ML research",
     title: "Wildfire Shutoff Modeling",
     tagline: "Models power shutoff decisions using wildfire risk and transmission line loading.",
@@ -33,6 +35,7 @@ export const projects = [
   },
   {
     id: "gradey",
+    cardSummary: "Choose courses around your GPA goals.",
     category: "Conversational AI",
     title: "Gradey",
     tagline: "Helps students explore courses and export schedules to their calendars.",
@@ -48,6 +51,7 @@ export const projects = [
   },
   {
     id: "trip-rescue",
+    cardSummary: "Find a way there after a cancellation.",
     title: "TripRescue",
     category: "AI & travel planning",
     tagline: "Finds replacement flights that fit your budget and arrival deadline.",

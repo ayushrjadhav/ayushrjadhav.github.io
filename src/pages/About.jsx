@@ -23,7 +23,9 @@ export default function About() {
             <a className="button secondary" href={`mailto:${contactEmail}`}>Get in touch</a>
           </div>
         </div>
-        <img className="portrait" src="/headshot.jpg" alt="Ayush Jadhav" />
+        <div className="portrait">
+          <img src="/headshot.jpg" alt="Ayush Jadhav" width="724" height="1086" />
+        </div>
       </section>
       <section className="shell page-section career" id="experience" aria-labelledby="career-heading">
         <div className="section-heading"><h2 id="career-heading">Experience timeline</h2></div>
@@ -32,10 +34,26 @@ export default function About() {
             <li key={title}>
               <div className="career-role">
                 <h3>{title}</h3>
-                <p>{dates}</p>
+                <p className="timeline-date">{dates}</p>
               </div>
               <p className="career-organization">{organization}</p>
               <p>{bullets[0]}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+      <section className="shell page-section career" id="education" aria-labelledby="education-heading">
+        <div className="section-heading"><h2 id="education-heading">Education</h2></div>
+        <ol className="career-timeline">
+          {education.map(({ school, degree, date, programType, emphasis }) => (
+            <li key={school}>
+              <div className="career-role">
+                <h3>{school}</h3>
+                <p className="timeline-date">{date}</p>
+              </div>
+              <p className="career-organization">{degree}</p>
+              {programType && <p>{programType}</p>}
+              {emphasis && <p>Emphasis in {emphasis}</p>}
             </li>
           ))}
         </ol>
@@ -51,11 +69,6 @@ export default function About() {
                 <p>{text}</p>
               </article>
             ))}
-            <article className="snapshot-card">
-              <p className="eyebrow">Education</p>
-              <h3>{education.school}</h3>
-              <p>{education.degree} · {education.date}</p>
-            </article>
           </div>
         </div>
       </section>

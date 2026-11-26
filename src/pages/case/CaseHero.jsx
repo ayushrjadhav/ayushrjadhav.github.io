@@ -1,4 +1,4 @@
-export default function CaseHero({ title, description, image, imageAlt, stats, children }) {
+export default function CaseHero({ title, description, image, imageAlt, imageDimensions, stats, children }) {
   return (
     <div className="bg-gradient-to-b from-neutral-50 to-white">
       <section className="max-w-6xl mx-auto px-6 pt-16 md:pt-24">
@@ -9,8 +9,14 @@ export default function CaseHero({ title, description, image, imageAlt, stats, c
             <p className="mt-4 text-neutral-600">{description}</p>
             {children}
           </div>
-          <div className="rounded-2xl overflow-hidden border border-black/10 aspect-[4/3] w-full">
-            <img src={image} alt={imageAlt} className="w-full h-full object-cover" />
+          <div className={`rounded-2xl overflow-hidden border border-black/10 w-full ${imageDimensions ? "" : "aspect-[4/3]"}`}>
+            <img
+              src={image}
+              alt={imageAlt}
+              width={imageDimensions?.width}
+              height={imageDimensions?.height}
+              className={imageDimensions ? "block w-full h-auto" : "w-full h-full object-cover"}
+            />
           </div>
         </div>
         <dl className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">

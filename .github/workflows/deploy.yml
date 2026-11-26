@@ -32,7 +32,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: .nvmrc
           cache: 'npm'
 
       # Step 3: Install dependencies
@@ -41,7 +41,23 @@ jobs:
 
       # Step 4: Build the project
       - name: Build project
+        env:
+          VITE_AYUSH_AI_ENDPOINT: ${{ vars.VITE_AYUSH_AI_ENDPOINT }}
         run: npm run build
+
+      - name: Prepare portfolio routes for GitHub Pages
+        run: |
+          for route in about resume AyushAI projects case-studies; do
+            mkdir -p "dist/$route"
+            cp dist/index.html "dist/$route/index.html"
+          done
+          for slug in wischeduler wildfire-ml tally-ai gradey trip-rescue cloud-ai frontend-systems; do
+            for route in projects case-studies; do
+              mkdir -p "dist/$route/$slug"
+              cp dist/index.html "dist/$route/$slug/index.html"
+            done
+          done
+          cp dist/index.html dist/404.html
 
       # Step 5: Configure Pages deployment
       - name: Configure Pages

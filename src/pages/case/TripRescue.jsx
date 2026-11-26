@@ -7,8 +7,8 @@ const summary = [
 ];
 
 const architecture = [
-  ["Trip intake and route planning", "Chat captures a structured trip draft, and the manual form lets travelers review or edit it. The planner can check nearby airports or next-day departures and makes at most four flight searches per request."],
-  ["Search and ranking", "The backend uses SerpApi for live fares and includes a simulator for demo scenarios. Ranking accounts for estimated transfers and flags unknown bag fees. Eligible New York–Washington, DC searches can also show scheduled Amtrak services."],
+  ["Trip intake and route planning", "Chat captures a structured trip draft, and the manual form lets travelers review or edit it. I capped each request at four flight searches to bound provider calls and keep the search focused during a disruption. Within that limit, the planner can try nearby airports or next-day departures."],
+  ["Search and ranking", "The backend uses SerpApi for live fares and includes a simulator for demo scenarios. If a checked-bag fee is unknown, the app lists an otherwise qualifying flight as a possible match. Entering a verified fee recalculates the total against the budget. Eligible New York–Washington, DC searches can also show scheduled Amtrak services."],
 ];
 
 export default function TripRescue({ project }) {
@@ -16,8 +16,9 @@ export default function TripRescue({ project }) {
     <>
       <CaseHero
         title="TripRescue — Flight Cancellation Recovery"
-        description={project.tagline}
+        description="I built the chat and manual planning flows, route planner, and ranking engine so travelers can compare replacement flights against their real arrival deadline and total budget."
         image={project.cover}
+        imageDimensions={{ width: 1100, height: 619 }}
         imageAlt="TripRescue showing trip inputs and simulated flight options"
         stats={[
           ["Trip entry", "Chat or form"],
