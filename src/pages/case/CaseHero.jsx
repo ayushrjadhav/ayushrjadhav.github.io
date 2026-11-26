@@ -1,10 +1,10 @@
-export default function CaseHero({ title, description, image, imageAlt, imageDimensions, stats, children }) {
+export default function CaseHero({ category = "Project", title, description, image, imageAlt, imageDimensions, stats, children }) {
   return (
     <div className="bg-gradient-to-b from-neutral-50 to-white">
       <section className="max-w-6xl mx-auto px-6 pt-16 md:pt-24">
         <div className="grid md:grid-cols-2 gap-10 items-start">
           <div>
-            <p className="text-xs uppercase tracking-wide text-neutral-500">Project</p>
+            <p className="text-xs uppercase tracking-wide text-neutral-500">{category}</p>
             <h1 className="mt-2 text-4xl md:text-5xl font-semibold tracking-tight">{title}</h1>
             <p className="mt-4 text-neutral-600">{description}</p>
             {children}

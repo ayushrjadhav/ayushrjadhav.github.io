@@ -15,6 +15,7 @@ export default function TripRescue({ project }) {
   return (
     <>
       <CaseHero
+        category={project.category}
         title="TripRescue — Flight Cancellation Recovery"
         description="I built the chat and manual planning flows, route planner, and ranking engine so travelers can compare replacement flights against their real arrival deadline and total budget."
         image={project.cover}

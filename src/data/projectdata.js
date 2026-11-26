@@ -4,7 +4,7 @@ export const projects = [
     id: "trip-rescue",
     cardSummary: "Find a way there after a cancellation.",
     title: "TripRescue",
-    category: "AI & travel planning",
+    category: "Agentic AI & travel planning",
     tagline: "Finds replacement flights that fit your budget and arrival deadline.",
     cover: "/trip-rescue.jpg",
     role: "Creator",
