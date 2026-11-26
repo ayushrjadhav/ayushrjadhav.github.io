@@ -1,66 +1,24 @@
+import CaseHero from "./CaseHero";
+
 export default function GradeyCase() {
   const Wrapper = ({ children, className = "" }) => (
     <section className={"max-w-6xl mx-auto px-6 " + className}>{children}</section>
   );
 
-  const Stat = ({ k, v }) => (
-    <div className="rounded-2xl bg-white border border-black/10 p-4 shadow-sm">
-      <div className="text-sm text-neutral-500">{k}</div>
-      <div className="text-2xl font-semibold mt-1">{v}</div>
-    </div>
-  );
-
   return (
     <>
-      {/* Hero */}
-      <div className="bg-gradient-to-b from-neutral-50 to-white">
-        <Wrapper className="pt-16 md:pt-24">
-          <div className="grid md:grid-cols-2 gap-10 items-start">
-            <div>
-              <div className="text-xs uppercase tracking-wide text-neutral-500">Case Study</div>
-              <h1 className="mt-2 text-4xl md:text-5xl font-semibold tracking-tight">
-                Gradey — AI Chatbot
-              </h1>
-              <p className="mt-4 text-neutral-600">
-                A personalized academic assistant that recommends courses based on GPA goals, professor history, 
-                grade distributions, and student outcomes — with optional schedule parsing and .ics export. 
-                Designed to help students choose classes intelligently, not blindly.
-              </p>
-
-              <div className="mt-6 flex flex-wrap gap-3">
-                <a
-                  href="/resume.pdf"
-                  className="px-5 py-2.5 rounded-xl bg-black text-white font-medium hover:opacity-90"
-                >
-                  Résumé
-                </a>
-                <a
-                  href="/case-studies"
-                  className="px-5 py-2.5 rounded-xl border border-black/15 hover:bg-black/5"
-                >
-                  All Case Studies
-                </a>
-              </div>
-            </div>
-
-            <div className="rounded-2xl overflow-hidden border border-black/10 aspect-[4/3] w-full">
-              <img
-                src="/Gradey.png"
-                alt="Gradey UI Screenshot"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-
-          {/* Stats */}
-          <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Stat k="Students Helped" v="500+ users" />
-            <Stat k="Recommendation Engine" v="GPA‑aware" />
-            <Stat k="Professor Insights" v="Rating + Grade Data" />
-            <Stat k="Extras" v="Schedule → .ics" />
-          </div>
-        </Wrapper>
-      </div>
+      <CaseHero
+        title="Gradey — AI Chatbot"
+        description="A personalized academic assistant that recommends courses based on GPA goals, professor history, grade distributions, and student outcomes, with optional schedule parsing and .ics export."
+        image="/Gradey.png"
+        imageAlt="Gradey chatbot interface"
+        stats={[
+          ["Students Helped", "500+ users"],
+          ["Recommendation Engine", "GPA-aware"],
+          ["Professor Insights", "Rating + Grade Data"],
+          ["Extras", "Schedule to .ics"],
+        ]}
+      />
 
       {/* Problem → Role → Outcome */}
       <Wrapper className="py-12 md:py-16">

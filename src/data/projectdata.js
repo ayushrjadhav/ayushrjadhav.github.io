@@ -2,22 +2,25 @@
 export const projects = [
   {
     id: "wischeduler",
-    title: "Wischeduler — AI Scheduling Assistant",
-    tagline: "LLM reasoning + optimization; 1st-place capstone",
+    category: "LLMs & optimization",
+    title: "Wischeduler",
+    tagline: "Turns course requirements and preferences into conflict-free schedules.",
     cover: "/Wischeduler.jpg", // add this image
     role: "Lead engineer (AI + systems)",
     stack: ["React/Vite", "LLM", "Optimization", "ICS"],
     highlights: [
       "Reduced conflicts ~20% vs baseline (capstone benchmark)",
-      "Human-in-the-loop overrides + clear conflict reasons",
+      "Validates constraints extracted from natural-language input, then uses a solver to generate conflict-free schedules.",
+      "Supports manual overrides and explains conflicts.",
       "Exports schedules to .ics; clean UX for students",
     ],
     links: { github: "", live: "" },
   }, 
   {
-    id: "wildfire-ops",
-    title: "Wildfire Shutoff Optimization (ML Research)",
-    tagline: "SVM/Random Forest on risk + line loading",
+    id: "wildfire-ml",
+    category: "Applied ML research",
+    title: "Wildfire Shutoff Modeling",
+    tagline: "Models power shutoff decisions using wildfire risk and transmission line loading.",
     cover: "/wildfireAI.jpg", // add this image
     role: "Research developer",
     stack: ["Python", "SVM", "Random Forest", "Pandas/NumPy"],
@@ -30,8 +33,9 @@ export const projects = [
   },
   {
     id: "gradey",
-    title: "Gradey — AI Chatbot (Scheduling + Q&A)",
-    tagline: "Generative AI assistant with .ics export",
+    category: "Conversational AI",
+    title: "Gradey",
+    tagline: "Helps students explore courses and export schedules to their calendars.",
     cover: "/Gradey.png", // add this image
     role: "Creator",
     stack: ["React", "LLM", "OCR (optional)", "RAG (planned)"],
@@ -43,31 +47,20 @@ export const projects = [
     links: { github: "", live: "" },
   },
   {
-    id: "cloud-ai",
-    title: "Cloud AI Experiments (Azure OpenAI + AWS Lambda)",
-    tagline: "LLM utilities & serverless APIs",
-    cover: "/Cloud.jpg", // add this image
-    role: "Builder",
-    stack: ["Azure OpenAI", "AWS Lambda", "APIs"],
+    id: "trip-rescue",
+    title: "TripRescue",
+    category: "AI & travel planning",
+    tagline: "Finds replacement flights that fit your budget and arrival deadline.",
+    cover: "/trip-rescue.jpg",
+    role: "Creator",
+    stack: ["Python", "FastAPI", "OpenAI", "SerpApi", "Vercel"],
     highlights: [
-      "Deployed LLM endpoints and small tools for text tasks",
-      "Focused on reliability, guardrails, prompt hygiene",
-      "Explored evals + latency tradeoffs",
+      "Capture trip details through chat or a manual form, then rank flight options by total cost, arrival time, or stops.",
+      "Use a bounded route planner to check nearby airports or next-day departures when the deadline allows.",
+      "Factor in estimated transfers and checked bags, and surface alternatives when no option meets the original limits.",
+      "Compare live flights or run a simulator. Eligible New York–Washington, DC searches can also show scheduled Amtrak services.",
     ],
-    links: { github: "", live: "" },
-  },
-  {
-    id: "frontend-systems",
-    title: "Frontend Systems & UI Engineering",
-    tagline: "Modern React/Vite/Bootstrap component systems",
-    cover: "/UIUX.jpg", // add this image
-    role: "Frontend engineer",
-    stack: ["React", "Vite", "Tailwind/Bootstrap"],
-    highlights: [
-      "Clean, responsive components with accessibility in mind",
-      "Reusable patterns for forms, lists, and modals",
-      "Focus on performance + DX",
-    ],
-    links: { github: "", live: "" },
+    links: { live: "https://triprescue.ayushjadhav.com" },
   },
 ];
+export const featuredProjects = ["trip-rescue", "wischeduler", "wildfire-ml"].map((id) => projects.find((project) => project.id === id));

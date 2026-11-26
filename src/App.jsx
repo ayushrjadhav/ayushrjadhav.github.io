@@ -1,36 +1,52 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-import Chatbot from "./components/Chatbot";
-import Layout from './core/Layout';
-import Home from './pages/Home';
-import Projects from './pages/Projects';
-import About from './pages/About';
-import CaseStudies from "./pages/CaseStudies";
-import WischedulerCase from "./pages/case/Wischeduler";
-import WildfireMLCase from "./pages/case/WildfireML";
-import GradeyCase from "./pages/case/Gradey";
+import { useEffect } from "react";
+import { BrowserRouter, Navigate, Route, Routes, useLocation, useParams } from "react-router-dom";
+import Layout from "./core/Layout";
+import Home from "./pages/Home";
+import { ProjectDetail, Projects } from "./pages/Projects";
+import About from "./pages/About";
 import AyushAI from "./pages/AyushAI";
-import TallyAICase from "./pages/case/TallyAI";
+import { projects } from "./data/projectdata";
 
+function LegacyProject() {
+  const { slug } = useParams();
+  const { search, hash } = useLocation();
+  return <Navigate to={`/projects/${slug}${search}${hash}`} replace />;
+}
+
+function LegacyResume() {
+  const { search } = useLocation();
+  return <Navigate to={{ pathname: "/about", search, hash: "#experience" }} replace />;
+}
+
+function SiteRoutes() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    const page = pathname.toLowerCase().split("/")[1];
+    const project = projects.find(({ id }) => pathname.replace(/\/$/, "") === `/projects/${id}`);
+    const title = project?.title ?? { projects: "Projects", about: "About", ayushai: "AyushAI" }[page];
+    document.title = title ? `${title} | Ayush Jadhav` : "Ayush Jadhav | Applied AI Engineer";
+  }, [pathname]);
+
+  return (
+    <Layout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/projects/cloud-ai" element={<Navigate to="/projects" replace />} />
+        <Route path="/projects/frontend-systems" element={<Navigate to="/projects" replace />} />
+        <Route path="/projects/tally-ai" element={<Navigate to="/projects" replace />} />
+        <Route path="/projects/:slug" element={<ProjectDetail />} />
+        <Route path="/case-studies" element={<Navigate to="/projects" replace />} />
+        <Route path="/case-studies/:slug" element={<LegacyProject />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/resume" element={<LegacyResume />} />
+        <Route path="/AyushAI" element={<AyushAI />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Layout>
+  );
+}
 
 export default function App() {
-  return (
-    <Router>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/case-studies" element={<CaseStudies />} />
-          <Route path="/case-studies/wischeduler" element={<WischedulerCase />} />
-          <Route path="/case-studies/wildfire-ml" element={<WildfireMLCase />} />
-          <Route path="/case-studies/gradey" element={<GradeyCase />} />
-          <Route path="/AyushAI" element={<AyushAI />} />
-          <Route path="/case-studies/tally-ai" element={<TallyAICase />} />
-        </Routes>
-      </Layout>
-      <Chatbot />
-    </Router>
-  );
+  return <BrowserRouter><SiteRoutes /></BrowserRouter>;
 }

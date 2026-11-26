@@ -17,7 +17,7 @@ export default function WildfireMLCase() {
         <Wrapper className="pt-16 md:pt-24">
           <div className="grid md:grid-cols-2 gap-10 items-start">
             <div>
-              <div className="text-xs uppercase tracking-wide text-neutral-500">Case Study</div>
+              <div className="text-xs uppercase tracking-wide text-neutral-500">Project</div>
               <h1 className="mt-2 text-4xl md:text-5xl font-semibold tracking-tight">
                 Wildfire ML — Risk & Line Loading
               </h1>
@@ -26,21 +26,6 @@ export default function WildfireMLCase() {
                 public safety power shutoff decisions using wildfire risk and line‑loading
                 features—aiming for fewer unnecessary shutoffs and safer operations.
               </p>
-
-              <div className="mt-6 flex flex-wrap gap-3">
-                <a
-                  href="/resume.pdf"
-                  className="px-5 py-2.5 rounded-xl bg-black text-white font-medium hover:opacity-90"
-                >
-                  Resume
-                </a>
-                <a
-                  href="/projects"
-                  className="px-5 py-2.5 rounded-xl border border-black/15 hover:bg-black/5"
-                >
-                  Back to Projects
-                </a>
-              </div>
             </div>
 
             <div className="rounded-2xl overflow-hidden border border-black/10 aspect-[4/3] w-full">

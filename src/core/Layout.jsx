@@ -1,33 +1,43 @@
-import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+
+import { contactEmail } from "../data/profile";
+
+const links = [["Projects", "/projects"], ["About", "/about"], ["AyushAI", "/AyushAI"]];
 
 export default function Layout({ children }) {
-  const { pathname } = useLocation();
-  const hideFooter = pathname.toLowerCase().includes("ayushai");
+  const { pathname, hash } = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const section = hash && document.getElementById(hash.slice(1));
+    if (section) section.scrollIntoView();
+    else window.scrollTo(0, 0);
+  }, [pathname, hash]);
 
   return (
-    <div className="min-h-screen bg-white text-black antialiased">
-      <header className="sticky top-0 z-50 backdrop-blur bg-white/70 border-b border-black/10">
-        <nav className="max-w-6xl mx-auto h-14 px-6 flex items-center justify-between">
-          <a href="/" className="font-semibold">Ayush</a>
-          <div className="hidden md:flex gap-8 text-sm text-neutral-600">
-            <a href="/">Home</a>
-            <a href="/projects">Projects</a>
-            <a href="/case-studies">Case Studies</a>
-            <a href="/about">About</a>
-            <a href="/AyushAI">AyushAI</a>
+    <div className="site">
+      <a className="skip-link" href="#main">Skip to content</a>
+      <header className="site-header">
+        <nav className="shell nav" aria-label="Main navigation">
+          <Link className="wordmark" to="/" onClick={() => setMenuOpen(false)}>Ayush Jadhav</Link>
+          <button className="menu-toggle" type="button" aria-expanded={menuOpen} aria-controls="site-links" onClick={() => setMenuOpen(!menuOpen)}>Menu</button>
+          <div className={`site-links ${menuOpen ? "is-open" : ""}`} id="site-links">
+            {links.map(([label, path]) => <NavLink key={path} to={path} onClick={() => setMenuOpen(false)}>{label}</NavLink>)}
           </div>
         </nav>
       </header>
-
-      <main>{children}</main>
-
-      {!hideFooter && (
-        <footer className="border-t border-black/10 mt-24">
-          <div className="max-w-6xl mx-auto px-6 py-12 text-sm text-neutral-500">
-            Designed by Ayush.
+      <main id="main" tabIndex={-1}>{children}</main>
+      <footer className="site-footer">
+        <div className="shell footer-inner">
+          <Link className="wordmark" to="/">Ayush Jadhav</Link>
+          <div className="actions">
+            <a href={`mailto:${contactEmail}`}>Email</a>
+            <a href="https://www.linkedin.com/in/ayush-jadhav-227590227/">LinkedIn</a>
+            <a href="https://github.com/ayushrjadhav">GitHub</a>
           </div>
-        </footer>
-      )}
+        </div>
+      </footer>
     </div>
   );
 }
